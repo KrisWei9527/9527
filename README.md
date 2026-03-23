@@ -1,16 +1,18 @@
-## Hi there 👋
+# NAME: Ubisoft
+# AUTHOR: YourName
+# UPDATED: 2026-03-23
+# TOTAL: 8
 
-<!--
-**KrisWei9527/KrisWei9527** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+# 核心域名
+HOST-SUFFIX,ubisoft.com,Proxy
+HOST-SUFFIX,ubi.com,Proxy
+HOST-SUFFIX,ubisoft.org,Proxy
+HOST-SUFFIX,ubisoft-orbit.com,Proxy
 
-Here are some ideas to get you started:
+# 客户端与分发内容
+HOST-SUFFIX,uplay.com,Proxy
+HOST-SUFFIX,akamaized.net,Proxy
+HOST-KEYWORD,ubisoft,Proxy
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+# 登录相关（有时涉及微软代理）
+HOST-SUFFIX,mambo-ubisoftaad.msappproxy.net,Proxy
