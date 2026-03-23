@@ -1,1 +1,26 @@
+# NAME: Ultra Mobile
+# AUTHOR: KrisWei9527
+# UPDATED: 2026-03-23
+# 建议策略: 美国节点 (US Proxy)
+
+# --- 核心官网与用户后台 ---
+HOST-SUFFIX,ultramobile.com,Proxy
+HOST-SUFFIX,my.ultramobile.com,Proxy
+HOST-SUFFIX,shop.ultramobile.com,Proxy
+
+# --- 激活与充值系统 ---
+HOST-SUFFIX,activate.ultramobile.com,Proxy
+HOST-SUFFIX,recharge.ultramobile.com,Proxy
+
+# --- 底层通信与 API 服务 (重要：影响 App 登录) ---
+HOST-SUFFIX,uvnv.com,Proxy
+HOST-SUFFIX,mail.uvnv.com,Proxy
+HOST-SUFFIX,api.uvnv.com,Proxy
+
+# --- 关联支付与验证 (可选，若支付失败请务必包含) ---
+HOST-KEYWORD,ultramobile,Proxy
+HOST-SUFFIX,ultra.me,Proxy
+
+# --- 常见第三方服务 (用于网页渲染和统计) ---
+HOST-SUFFIX,cloudfront.net,Proxy
 
