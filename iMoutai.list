@@ -1,1 +1,24 @@
+# NAME: iMoutai
+# AUTHOR: KrisWei9527
+# UPDATED: 2026-03-23
+# 建议策略: DIRECT (直连)
+
+# --- 核心申购与官方域名 ---
+HOST-SUFFIX,moutai.com.cn,Direct
+HOST-SUFFIX,moutaichina.com,Direct
+HOST-SUFFIX,moutai519.com.cn,Direct
+
+# --- 移动端 API 与 验证服务 ---
+HOST-SUFFIX,hpgf.com.cn,Direct
+HOST-SUFFIX,central-api.imoutai.com.cn,Direct
+HOST-SUFFIX,api.imoutai.com.cn,Direct
+
+# --- 资源分发与静态内容 (CDN) ---
+HOST-SUFFIX,alicdn.com,Direct
+HOST-SUFFIX,aliyuncs.com,Direct
+HOST-KEYWORD,moutai,Direct
+
+# --- 支付与安全验证 ---
+HOST-SUFFIX,alipay.com,Direct
+HOST-SUFFIX,wechatpay.cn,Direct
 
