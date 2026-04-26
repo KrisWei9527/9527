@@ -1,2 +1,10 @@
-HOST-KEYWORD,zabank,DIRECT
-HOST-KEYWORD,za.group,DIRECT
+# ZA Bank 走代理
+DOMAIN-SUFFIX,za.group,PROXY
+DOMAIN-SUFFIX,bank.za.group,PROXY
+DOMAIN,bank.za.group,PROXY
+DOMAIN-SUFFIX,service.bank.za.group,PROXY
+DOMAIN-SUFFIX,mail.bank.za.group,PROXY
+DOMAIN-SUFFIX,mail.za.group,PROXY
+DOMAIN-SUFFIX,developer.bank.za.group,PROXY
+DOMAIN-SUFFIX,apisandbox.bank.za.group,PROXY
+DOMAIN-SUFFIX,api.bank.za.group,PROXY
