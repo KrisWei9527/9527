@@ -1,10 +1,4 @@
-# ZA Bank 走代理
-DOMAIN-SUFFIX,za.group,PROXY
-DOMAIN-SUFFIX,bank.za.group,PROXY
-DOMAIN,bank.za.group,PROXY
-DOMAIN-SUFFIX,service.bank.za.group,PROXY
-DOMAIN-SUFFIX,mail.bank.za.group,PROXY
-DOMAIN-SUFFIX,mail.za.group,PROXY
-DOMAIN-SUFFIX,developer.bank.za.group,PROXY
-DOMAIN-SUFFIX,apisandbox.bank.za.group,PROXY
-DOMAIN-SUFFIX,api.bank.za.group,PROXY
+# ZA Bank 分流规则
+DOMAIN-SUFFIX,za.group,DIRECT
+DOMAIN-SUFFIX,bank.za.group,DIRECT
+DOMAIN,bank.za.group,DIRECT
