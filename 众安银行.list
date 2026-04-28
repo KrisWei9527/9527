@@ -1,4 +1,18 @@
-# ZA Bank 分流规则
-DOMAIN-SUFFIX,za.group,DIRECT
+# ====================== 众安银行 ZA Bank - DIRECT ======================
 DOMAIN-SUFFIX,bank.za.group,DIRECT
-DOMAIN,bank.za.group,DIRECT
+DOMAIN-SUFFIX,za.group,DIRECT
+DOMAIN-SUFFIX,zaticdn.com,DIRECT
+
+DOMAIN,bankappgw.za.group,DIRECT
+DOMAIN-SUFFIX,appguard.za.group,DIRECT
+DOMAIN-SUFFIX,offlineapp.za.group,DIRECT
+
+# 扩展域名（建议一起加入）
+DOMAIN-SUFFIX,l.za.group,DIRECT
+DOMAIN-SUFFIX,business-internet-banking.za.group,DIRECT
+DOMAIN-SUFFIX,bank-invest.za.group,DIRECT
+DOMAIN-SUFFIX,zaif.za.group,DIRECT
+
+# 可选：如果你想更严格，可以加这些
+DOMAIN-KEYWORD,za.group,DIRECT
+DOMAIN-KEYWORD,zaticdn,DIRECT
