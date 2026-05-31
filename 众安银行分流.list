@@ -1,4 +1,4 @@
-# ====================== 众安银行 ZA Bank - DIRECT ======================
+# ====================== 众安银行 ZA Bank 全套 - DIRECT ======================
 DOMAIN-SUFFIX,bank.za.group,DIRECT
 DOMAIN-SUFFIX,za.group,DIRECT
 DOMAIN-SUFFIX,zaticdn.com,DIRECT
@@ -8,9 +8,13 @@ DOMAIN,bankappgw.za.group,DIRECT
 DOMAIN-SUFFIX,appguard.za.group,DIRECT
 DOMAIN-SUFFIX,offlineapp.za.group,DIRECT
 
-# 股票交易服务（本次新增）
+# 股票交易服务
 DOMAIN-SUFFIX,zafinsvc.com,DIRECT
 DOMAIN,bank-stock.zafinsvc.com,DIRECT
+
+# 投资市场服务（本次新增）
+DOMAIN-SUFFIX,zainvest.group,DIRECT
+DOMAIN,bank-sbsmarket.zainvest.group,DIRECT
 
 # 其他扩展域名
 DOMAIN-SUFFIX,l.za.group,DIRECT
@@ -18,7 +22,8 @@ DOMAIN-SUFFIX,business-internet-banking.za.group,DIRECT
 DOMAIN-SUFFIX,bank-invest.za.group,DIRECT
 DOMAIN-SUFFIX,zaif.za.group,DIRECT
 
-# 可选增强
+# 关键词增强（防止漏掉子域名）
 DOMAIN-KEYWORD,za.group,DIRECT
 DOMAIN-KEYWORD,zaticdn,DIRECT
 DOMAIN-KEYWORD,zafinsvc,DIRECT
+DOMAIN-KEYWORD,zainvest,DIRECT
