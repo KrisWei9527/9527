@@ -97,6 +97,18 @@ DOMAIN-SUFFIX,openai.com
 DOMAIN-SUFFIX,azureedge.net
 DOMAIN-SUFFIX,imgix.net
 
+# Muse from Meta
+- DOMAIN-SUFFIX,muse.ai,Muse
+- DOMAIN-SUFFIX,meta.ai,Muse
+- DOMAIN-SUFFIX,ai.meta.com,Muse
+- DOMAIN,hatch-api.meta.ai,Muse
+- DOMAIN-SUFFIX,fbcdn.net,Muse
+- DOMAIN-SUFFIX,fbsbx.com,Muse
+- DOMAIN-SUFFIX,facebook.com,Muse        # 登录/账号体系（可选，范围大）
+- DOMAIN-SUFFIX,fb.com,Muse
+- DOMAIN-SUFFIX,fb.me,Muse
+- IP-ASN,32934,Muse,no-resolve
+
 # > Perplexity
 DOMAIN,pplx-res.cloudinary.com
 DOMAIN-SUFFIX,perplexity.ai
