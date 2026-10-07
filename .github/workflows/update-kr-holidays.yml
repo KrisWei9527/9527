@@ -20,12 +20,12 @@ jobs:
         run: python -m pip install korean_lunar_calendar
 
       - name: 生成中文韩国公休日 ICS
-        run: python kr-holidays/generate_kr_holidays.py
+        run: run: python generate_kr_holidays.py
 
       - name: 提交更新
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add kr-holidays/kr-holidays-cn.ics
+          git add kr-holidays-cn.ics
           git diff --cached --quiet || git commit -m "自动更新韩国公休日"
           git push
