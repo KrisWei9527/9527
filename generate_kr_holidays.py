@@ -102,7 +102,7 @@ lines = [
     "PRODID:-//KrisWei9527//韩国公休日 中文版//CN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:韩国公休日（中文）",
+    "X-WR-CALNAME:韩国公休日 🇰🇷（中文）",
     "X-WR-CALDESC:韩国法定公休日及依法计算的代替公休日（中文）",
 ]
 
@@ -115,7 +115,7 @@ for year in range(start_year, end_year + 1):
             f"DTSTAMP:{today:%Y%m%d}T000000Z",
             f"DTSTART;VALUE=DATE:{d:%Y%m%d}",
             f"DTEND;VALUE=DATE:{(d + timedelta(days=1)):%Y%m%d}",
-            f"SUMMARY:{name}",
+            f"SUMMARY:{name} 🇰🇷",
             "TRANSP:TRANSPARENT",
             "END:VEVENT",
         ]
