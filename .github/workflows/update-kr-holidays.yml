@@ -20,7 +20,7 @@ jobs:
         run: python -m pip install korean_lunar_calendar
 
       - name: 生成中文韩国公休日 ICS
-        run: run: python generate_kr_holidays.py
+        run: python generate_kr_holidays.py
 
       - name: 提交更新
         run: |
