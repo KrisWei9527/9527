@@ -1,7 +1,9 @@
 from datetime import date, timedelta
 from pathlib import Path
 from korean_lunar_calendar import KoreanLunarCalendar
+
 OUT = Path("kr-holidays-cn.ics")
+
 # 韩国法定公休日（中文），每次生成未来11年。
 # 依据韩国现行《관공서의 공휴일에 관한 규정》：
 # 2026年起劳动节（5月1日）和宪法纪念日（7月17日）纳入公休日。
