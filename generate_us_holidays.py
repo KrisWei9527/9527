@@ -32,8 +32,8 @@ def beijing_time_for_et_13(y, d):
     dst_start = nth_weekday(y, 3, 6, 2)
     dst_end = nth_weekday(y, 11, 6, 1)
     if dst_start <= d < dst_end:
-        return "北京时间次日01:00"
-    return "北京时间次日02:00"
+        return "01:00"
+    return "02:00"
 
 def holidays_for_year(y):
     closed = [
@@ -50,17 +50,17 @@ def holidays_for_year(y):
     ]
     early = [
         (nth_weekday(y,11,3,4)+timedelta(days=1),
-         "感恩节次日提前收盘｜CN：01:00或02:00 🇺🇸")
+         "感恩节次日提前收盘｛美东13:00/CN 01:00或02:00｝")
     ]
     eve = date(y,12,24)
     if eve.weekday() < 5 and eve != observed(date(y,12,25)):
-        early.append((eve, "圣诞节前夕提前收盘｜CN：01:00或02:00 🇺🇸"))
+        early.append((eve, "圣诞节提前收盘｛美东13:00/CN 01:00或02:00｝"))
 
     july4 = date(y,7,4)
     if july4.weekday() == 6:
-        early.append((date(y,7,2), "独立日前夕提前收盘｜CN：01:00或02:00 🇺🇸"))
+        early.append((date(y,7,2), "独立日前夕提前收盘｛美东13:00/CN 01:00或02:00｝"))
     elif july4.weekday() in (1,2,3,4):
-        early.append((date(y,7,3), "独立日前夕提前收盘｜CN：01:00或02:00 🇺🇸"))
+        early.append((date(y,7,3), "独立日前夕提前收盘｛美东13:00/CN 01:00或02:00｝"))
     return closed, early
 
 today = date.today()
@@ -94,7 +94,7 @@ for y in range(today.year, today.year+11):
             f"DTSTART;VALUE=DATE:{d:%Y%m%d}",
             f"DTEND;VALUE=DATE:{(d+timedelta(days=1)):%Y%m%d}",
             f"SUMMARY:{name}",
-            f"DESCRIPTION:NYSE / Nasdaq 美股提前收盘。美东时间13:00；北京时间次日{bj}。北京时间会因美国夏令时/冬令时变化。",
+            f"DESCRIPTION:NYSE / Nasdaq 美股提前收盘。美东13:00 / 北京时间次日{bj}。",
             "TRANSP:TRANSPARENT","END:VEVENT"
         ]
 lines.append("END:VCALENDAR")
