@@ -1,0 +1,31 @@
+name: 自动更新港股交易日历
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每月1日更新未来11年的港股交易日历
+    - cron: "47 3 1 * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 获取仓库
+        uses: actions/checkout@v4
+
+      - name: 安装农历转换库
+        run: python -m pip install korean_lunar_calendar
+
+      - name: 生成中文港股交易日历 ICS
+        run: python generate_hk_holidays.py
+
+      - name: 提交更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hk-holidays-cn.ics
+          git diff --cached --quiet || git commit -m "自动更新港股交易日历"
+          git push
