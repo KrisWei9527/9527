@@ -1,4 +1,4 @@
-name: 自动更新美国联邦节假日
+name: 自动更新美股交易日历
 on:
   workflow_dispatch:
   schedule:
@@ -9,13 +9,14 @@ jobs:
   update-calendar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: 生成中文节假日 ICS
+      - name: 获取仓库
+        uses: actions/checkout@v4
+      - name: 生成中文美股交易日历 ICS
         run: python generate_us_holidays.py
       - name: 提交更新
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add us-holidays-cn.ics
-          git diff --cached --quiet || git commit -m "自动更新美国联邦节假日"
+          git diff --cached --quiet || git commit -m "自动更新美股交易日历"
           git push
