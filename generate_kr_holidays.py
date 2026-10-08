@@ -4,11 +4,14 @@ from korean_lunar_calendar import KoreanLunarCalendar
 
 OUT = Path("kr-holidays-cn.ics")
 
-# 韩国法定公休日（中文），每次生成未来11年。
-# 依据韩国现行《관공서의 공휴일에 관한 규정》：
-# 2026年起劳动节（5月1日）和宪法纪念日（7月17日）纳入公休日。
-# 代替公休日按韩国现行规则计算；政府临时指定的临时公休日、
-# 选举日等无法提前固定的日期不在自动计算范围内。
+# 🇰🇷 韩国股市交易日历（KRX）
+# 生成未来11年的 KOSPI/KOSDAQ 主要市场休市日。
+# KRX 官方规则：周一至周五交易；公共假日、劳动节(5/1)、
+# 年末最后交易日（通常为12/31；若该日为周末/公休日则提前至最近交易日）、
+# 以及交易所临时指定的休市日不交易。
+#
+# 注意：临时公休日、选举日、KRX 临时决定的特殊休市日无法提前按固定规则推算。
+# GitHub Actions 定期运行本脚本，可在韩国政府/证券交易所公布临时安排后及时补入规则。
 
 def lunar_to_solar(year, month, day):
     cal = KoreanLunarCalendar()
@@ -19,78 +22,81 @@ def lunar_to_solar(year, month, day):
 def lunar_new_year(year):
     return lunar_to_solar(year, 1, 1)
 
-def add_holiday(items, d, name, substitute_allowed=False):
-    items.append({"date": d, "name": name, "sub": substitute_allowed})
+def add(items, d, name, substitute=False):
+    items.append({"date": d, "name": name, "sub": substitute})
 
-def base_holidays(year):
+def public_holidays(year):
     items = []
 
-    # 固定日期公休日
-    add_holiday(items, date(year, 1, 1), "元旦", False)
-    add_holiday(items, date(year, 3, 1), "三一节（独立运动纪念日）", True)
-    add_holiday(items, date(year, 5, 1), "劳动节", True)
-    add_holiday(items, date(year, 5, 5), "儿童节", True)
-    add_holiday(items, date(year, 6, 6), "显忠日", False)
-    add_holiday(items, date(year, 7, 17), "宪法纪念日", True)
-    add_holiday(items, date(year, 8, 15), "光复节", True)
-    add_holiday(items, date(year, 10, 3), "开天节", True)
-    add_holiday(items, date(year, 10, 9), "韩文日", True)
-    add_holiday(items, date(year, 12, 25), "圣诞节", True)
+    # 固定公休日
+    add(items, date(year, 1, 1), "元旦", False)
+    add(items, date(year, 3, 1), "三一节（独立运动纪念日）", True)
+    add(items, date(year, 5, 1), "劳动节", True)  # KRX 明确休市
+    add(items, date(year, 5, 5), "儿童节", True)
+    add(items, date(year, 6, 6), "显忠日", False)
+    add(items, date(year, 7, 17), "宪法纪念日", True)
+    add(items, date(year, 8, 15), "光复节", True)
+    add(items, date(year, 10, 3), "开天节", True)
+    add(items, date(year, 10, 9), "韩文日", True)
+    add(items, date(year, 12, 25), "圣诞节", True)
 
-    # 春节：农历除夕、正月初一、初二
+    # 春节：除夕、正月初一、初二
     ny = lunar_new_year(year)
-    add_holiday(items, ny - timedelta(days=1), "春节（除夕）", True)
-    add_holiday(items, ny, "春节", True)
-    add_holiday(items, ny + timedelta(days=1), "春节（初二）", True)
+    add(items, ny - timedelta(days=1), "春节（除夕）", True)
+    add(items, ny, "春节", True)
+    add(items, ny + timedelta(days=1), "春节（初二）", True)
 
-    # 佛诞：农历四月初八
-    add_holiday(items, lunar_to_solar(year, 4, 8), "佛诞日", True)
+    # 佛诞日：农历四月初八
+    add(items, lunar_to_solar(year, 4, 8), "佛诞日", True)
 
     # 中秋：农历八月十四、十五、十六
     for day, label in [(14, "中秋节前日"), (15, "中秋节"), (16, "中秋节次日")]:
-        add_holiday(items, lunar_to_solar(year, 8, day), label, True)
+        add(items, lunar_to_solar(year, 8, day), label, True)
 
     return items
 
-def observed_dates(items):
-    # 韩国现行规则：
-    # 允许代替公休日的节日如遇周末，或与其他公休日重合，
-    # 顺延至之后第一个非公休日；春节/中秋在周日重合时也适用。
-    holidays = {x["date"] for x in items}
+def substitute_dates(items):
+    """按韩国代替公休日规则生成实际休市日。"""
+    original_dates = {x["date"] for x in items}
     result = [(x["date"], x["name"], False) for x in items]
 
     for x in items:
         d = x["date"]
         need = False
 
+        # 可代替公休日遇周六/周日
         if x["sub"] and d.weekday() in (5, 6):
-            # 周六/周日
             need = True
-        elif x["sub"] and d.weekday() < 5 and d + timedelta(days=0) in holidays:
-            # 同一天重合由下方统一处理；此分支保留结构
-            pass
 
-        # 与另一个公休日重合（同一天有不同公休日）
-        same_day = [y for y in items if y["date"] == d]
-        if x["sub"] and len(same_day) > 1:
+        # 可代替公休日与另一个公休日重合
+        same_day_count = sum(1 for y in items if y["date"] == d)
+        if x["sub"] and same_day_count > 1:
             need = True
 
         if need:
             candidate = d + timedelta(days=1)
-            while candidate in holidays:
+            used = {r[0] for r in result}
+            while candidate in original_dates or candidate in used:
                 candidate += timedelta(days=1)
             result.append((candidate, f"{x['name']}（代替公休日）", True))
-            holidays.add(candidate)
 
-    # 防止同一天重复显示同一事件
+    # 去重
     seen = set()
     final = []
-    for d, name, is_sub in sorted(result, key=lambda z: (z[0], z[1])):
-        key = (d, name)
-        if key not in seen:
-            final.append((d, name, is_sub))
-            seen.add(key)
+    for item in sorted(result, key=lambda z: (z[0], z[1])):
+        if item[:2] not in seen:
+            final.append(item)
+            seen.add(item[:2])
     return final
+
+def year_end_closure(year, holidays):
+    """KRX 年末休市：12/31；若12/31为周末/公休日，则提前到最近交易日。"""
+    d = date(year, 12, 31)
+    if d.weekday() >= 5 or d in holidays:
+        d -= timedelta(days=1)
+        while d.weekday() >= 5 or d in holidays:
+            d -= timedelta(days=1)
+    return d
 
 today = date.today()
 start_year = today.year
@@ -99,23 +105,39 @@ end_year = start_year + 10
 lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//KrisWei9527//韩国公休日 中文版//CN",
+    "PRODID:-//KrisWei9527//KRX韩国股市交易日历 中文版//CN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:韩国公休日 🇰🇷（中文）",
-    "X-WR-CALDESC:韩国法定公休日及依法计算的代替公休日（中文）",
+    "X-WR-CALNAME:🇰🇷 韩国股市交易日历（中文）",
+    "X-WR-CALDESC:韩国交易所 KRX/KOSPI/KOSDAQ 休市日历；韩国09:00-15:30，CN 08:00-14:30。",
 ]
 
 for year in range(start_year, end_year + 1):
-    for d, name, is_sub in observed_dates(base_holidays(year)):
-        uid = f"kr-holiday-{d:%Y%m%d}-{name}@KrisWei9527"
+    items = substitute_dates(public_holidays(year))
+    holiday_dates = {d for d, _, _ in items}
+
+    # KRX 年末最后交易日休市
+    year_end = year_end_closure(year, holiday_dates)
+    if year_end not in holiday_dates:
+        items.append((year_end, "年末休市", False))
+
+    for d, name, is_sub in sorted(items, key=lambda z: (z[0], z[1])):
+        uid = f"krx-stock-{d:%Y%m%d}-{name}@KrisWei9527"
+        desc = f"KRX休市｜韩国 09:00-15:30｜CN 08:00-14:30"
+        if name == "劳动节":
+            desc += "｜KRX劳动节休市"
+        if name == "年末休市":
+            desc += "｜KRX年末最后交易日休市"
+        if is_sub:
+            desc += "｜代替公休日"
         lines += [
             "BEGIN:VEVENT",
             f"UID:{uid}",
             f"DTSTAMP:{today:%Y%m%d}T000000Z",
             f"DTSTART;VALUE=DATE:{d:%Y%m%d}",
             f"DTEND;VALUE=DATE:{(d + timedelta(days=1)):%Y%m%d}",
-            f"SUMMARY:{name} 🇰🇷",
+            f"SUMMARY:{name}休市 🇰🇷",
+            f"DESCRIPTION:{desc}",
             "TRANSP:TRANSPARENT",
             "END:VEVENT",
         ]
