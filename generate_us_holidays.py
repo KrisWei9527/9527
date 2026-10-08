@@ -59,7 +59,7 @@ def holidays_for_year(y):
     july4 = date(y,7,4)
     if july4.weekday() == 6:
         early.append((date(y,7,2), "独立日前夕提前收盘（美东13:00 / 北京时间次日01:00或02:00） 🇺🇸"))
-    elif july4.weekday() in (0,1,2,3):
+    elif july4.weekday() in (1,2,3,4):
         early.append((date(y,7,3), "独立日前夕提前收盘（美东13:00 / 北京时间次日01:00或02:00） 🇺🇸"))
     return closed, early
 
