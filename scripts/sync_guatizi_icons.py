@@ -12,10 +12,21 @@ BASE = "https://guatizi.com/"
 OUT = Path("icons/guatizi")
 OUT.mkdir(parents=True, exist_ok=True)
 session = requests.Session()
-session.headers.update({"User-Agent": "Mozilla/5.0 (compatible; personal-icon-archive/1.0)"})
+session.headers.update({
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Referer": "https://guatizi.com/",
+})
 
 def get_soup(url):
     r = session.get(url, timeout=25)
+    if r.status_code == 403:
+        raise RuntimeError(
+            f"网站拒绝 GitHub Actions 服务器访问（HTTP 403）：{url}。"
+            "这不是仓库权限错误；请勿反复重跑。可尝试从允许访问的网络获取图片，"
+            "或使用网站/图片权利人提供的公开下载地址。"
+        )
     r.raise_for_status()
     return BeautifulSoup(r.text, "html.parser")
 
