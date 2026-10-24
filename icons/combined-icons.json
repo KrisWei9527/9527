@@ -1,0 +1,22 @@
+{
+  "name": "KrisWei9527 组合订阅图标包",
+  "description": "自用组合订阅图标：server、layers、network、combine",
+  "icons": [
+    {
+      "name": "server",
+      "url": "https://raw.githubusercontent.com/KrisWei9527/9527/main/icons/server.svg"
+    },
+    {
+      "name": "layers",
+      "url": "https://raw.githubusercontent.com/KrisWei9527/9527/main/icons/layers.svg"
+    },
+    {
+      "name": "network",
+      "url": "https://raw.githubusercontent.com/KrisWei9527/9527/main/icons/network.svg"
+    },
+    {
+      "name": "combine",
+      "url": "https://raw.githubusercontent.com/KrisWei9527/9527/main/icons/combine.svg"
+    }
+  ]
+}
