@@ -1,0 +1,35 @@
+name: Sync Guatizi Airport Icons
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 3 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  download-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+      - name: Download listed airport logos
+        run: python scripts/sync_guatizi_icons.py
+      - name: Commit updated icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add icons/guatizi/
+          if git diff --cached --quiet; then
+            echo "No icon changes."
+          else
+            git commit -m "Sync airport icons from guatizi.com"
+            git push
+          fi
