@@ -8,6 +8,7 @@ DOMAIN-SUFFIX,chiefgroup.com.hk,direct
 DOMAIN-SUFFIX,chieftrade.com,direct
 
 # 中银香港（BOCHK）官方域名
-# 官网安全页面确认的主站及网银子域名：www.bochk.com、its.bochk.com、cib.bochk.com、igtb.bochk.com
-# 下方后缀规则已覆盖以上主站和子域名，无需重复添加
+# 官网确认的主站/网银域名：www.bochk.com、its.bochk.com、cib.bochk.com、igtb.bochk.com
+# 圈 X 实测命中域名：mb.bochk.com、ocs.bochk.com（已被下方后缀规则覆盖）
+# 下方后缀规则已覆盖上述 bochk.com 域名，无需重复添加
 DOMAIN-SUFFIX,bochk.com,direct
