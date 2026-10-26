@@ -7,5 +7,7 @@ DOMAIN-SUFFIX,fosunwealth.hk,direct
 DOMAIN-SUFFIX,chiefgroup.com.hk,direct
 DOMAIN-SUFFIX,chieftrade.com,direct
 
-# 中银香港（BOCHK）官方网站域名
+# 中银香港（BOCHK）官方域名
+# 官网安全页面确认的主站及网银子域名：www.bochk.com、its.bochk.com、cib.bochk.com、igtb.bochk.com
+# 下方后缀规则已覆盖以上主站和子域名，无需重复添加
 DOMAIN-SUFFIX,bochk.com,direct
