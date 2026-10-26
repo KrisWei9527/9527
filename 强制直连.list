@@ -6,3 +6,6 @@ DOMAIN-SUFFIX,fosunwealth.hk,direct
 # 致富证券官方域名（官网确认，应用接口仍需日志补全）
 DOMAIN-SUFFIX,chiefgroup.com.hk,direct
 DOMAIN-SUFFIX,chieftrade.com,direct
+
+# 中银香港（BOCHK）官方网站域名
+DOMAIN-SUFFIX,bochk.com,direct
