@@ -12,3 +12,6 @@ DOMAIN-SUFFIX,chieftrade.com,direct
 # 圈 X 实测命中域名：mb.bochk.com、ocs.bochk.com（已被下方后缀规则覆盖）
 # 下方后缀规则已覆盖上述 bochk.com 域名，无需重复添加
 DOMAIN-SUFFIX,bochk.com,direct
+# 微信语音/媒体相关域名（根据圈 X 实际请求日志观察）
+DOMAIN,sgshort.wechat.com,direct
+DOMAIN,sgminorshort.wechat.com,direct
