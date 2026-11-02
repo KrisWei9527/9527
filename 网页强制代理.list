@@ -4,3 +4,5 @@ host-suffix, stentvessel.shop, proxy
 host-suffix, qichiyu.com, proxy
 # LuminaK 机场网站
 host-suffix, luminak.net, proxy
+# Deepport 网站
+host-suffix, deepport.org, proxy
