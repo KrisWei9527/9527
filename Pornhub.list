@@ -1,6 +1,0 @@
-# Pornhub 强制代理规则（Quantumult X）
-# 请将 PROXY 替换为你配置中的实际代理策略组名称
-
-host-suffix, pornhub.com, PROXY
-host-suffix, phncdn.com, PROXY
-host-suffix, phprcdn.com, PROXY
